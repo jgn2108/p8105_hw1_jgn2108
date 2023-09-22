@@ -1,0 +1,127 @@
+# Install the required packages if not already installed
+if (!requireNamespace("rmarkdown", quietly = TRUE)) {
+  install.packages("rmarkdown")
+}
+if (!requireNamespace("knitr", quietly = TRUE)) {
+  install.packages("knitr")
+}
+
+# Create an R Markdown document
+
+# ---
+# title: "Homework 1 - jgn2108"
+# output: github_document
+# ---
+
+# Problem 0.1 https://github.com/jgn2108/p8105_hw1_jgn2108.git
+
+
+# Problem 1
+# Install and load the moderndive library
+#install.packages("moderndive")
+library(moderndive)
+
+# Load the early_january_weather dataset
+data("early_january_weather")
+
+# Description of the early_january_weather dataset
+names(early_january_weather)# List variable names in the dataset
+
+###the variables in this dataset, including names / values of important variables
+##"origin"  "year"     "month"      "day"        "hour"      
+## "temp"       "dewp"       "humid"      "wind_dir"   "wind_speed"
+## "wind_gust"  "precip"     "pressure"   "visib"      "time_hour" 
+
+
+# Get the number of rows and columns in the dataset
+num_rows <- nrow(early_january_weather)
+num_cols <- ncol(early_january_weather)
+
+###the size of the dataset (using nrow and ncol)
+## It has 358 rows and 15 columns.
+
+# Calculate the mean temperature
+mean_temp <- mean(early_january_weather$temp)
+
+# Display the results
+cat("The early_january_weather dataset contains the following variables:\n")
+cat(variable_names, sep = ", ")
+
+cat("\n\nIt has", num_rows, "rows and", num_cols, "columns.")
+
+cat("\n\nThe mean temperature in the dataset is approximately", round(mean_temp, 2), "degrees Celsius.")
+
+
+### The mean temperature
+##The mean temperature in the dataset is approximately 39.58 degrees Celsius.
+
+# Load the required library if not already loaded
+library(ggplot2)
+
+# Create the scatterplot
+scatterplot <- ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+  geom_point() +
+  labs(title = "Scatterplot of Temperature vs. Time Hour",
+       x = "Time Hour",
+       y = "Temperature (°C)",
+       color = "Humidity") +
+  theme_minimal()
+
+# Display the scatterplot
+print(scatterplot)
+
+# Export the scatterplot to your project directory
+ggsave("scatterplot.png", plot = scatterplot, width = 8, height = 6)
+
+
+
+# Problem 2
+library(tidyverse)
+
+# Create a random sample of size 10 from a standard Normal distribution
+numeric_vector <- rnorm(10)
+
+# Create a logical vector indicating whether elements of the sample are greater than 0
+logical_vector <- numeric_vector > 0
+
+# Create a character vector of length 10
+character_vector <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+
+# Create a factor vector of length 10, with 3 different factor "levels"
+factor_vector <- factor(c("Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "Low"))
+
+# Create a data frame with the variables
+hw1_dataframe <- data.frame(Numeric = numeric_vector,
+                           Logical = logical_vector,
+                           Character = character_vector,
+                           Factor = factor_vector)
+
+# Attempt to calculate the mean of each variable
+mean_numeric_before <- mean(hw1_dataframe$Numeric)
+mean_logical_before <- mean(hw1_dataframe$Logical)
+# mean_character_before <- mean(hw1_dataframe$Character)  # causes error
+# mean_factor_before <- mean(hw1_dataframe$Factor)  # causes error
+
+# Coerce character and factor variables to numeric
+numeric_character <- as.numeric(hw1_dataframe$Character)
+numeric_factor <- as.numeric(hw1_dataframe$Factor)
+
+# Calculate the mean of each variable after coercion
+mean_character_after <- mean(numeric_character)
+mean_factor_after <- mean(numeric_factor)
+
+# Print the means
+cat("Before Coercion:\n")
+cat("Mean of Numeric Vector:", mean_numeric_before, "\n")
+cat("Mean of Logical Vector:", mean_logical_before, "\n")
+cat("Calculating the mean of a character vector or factor vector will result in an error.\n")
+
+cat("After Coercion:\n")
+cat("Mean of Character Vector (after coercion):", mean_character_after, "\n")
+cat("Mean of Factor Vector (after coercion):", mean_factor_after, "\n")
+
+###Mean of Numeric Vector: 0.01412206 #before coercion
+###Mean of Logical Vector: 0.6 #before coercion
+
+###Mean of Character Vector (after coercion): NA 
+###Mean of Factor Vector (after coercion): 2 
