@@ -15,6 +15,7 @@ if (!requireNamespace("knitr", quietly = TRUE)) {
 
 # Problem 0.1 https://github.com/jgn2108/p8105_hw1_jgn2108.git
 
+#problem 0.2- make it readable
 
 # Problem 1
 # Install and load the moderndive library
@@ -126,4 +127,5 @@ cat("Mean of Factor Vector (after coercion):", mean_factor_after, "\n")
 ###Mean of Character Vector (after coercion): NA 
 ###Mean of Factor Vector (after coercion): 2 
 
+rmarkdown::render("hw1_jgn2108.Rmd")
 
